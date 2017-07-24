@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <%= t.include("partials/_head.html", grunt.data.json) %>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+
+    <responsive-child>
+      <main class="interactive">
+        <h1>Roadside picnic</h1>
+        <p class="chatter">
+          Since the roadkill rule was adopted in 2016, more than 1,500 deer or elk salvage permits have been issued in Washington. By comparison, motorists struck and killed roughly 3,000 deer and elk in 2010. The permits are free from <a href="http://wdfw.wa.gov/licensing/road-salvage" target="_blank">WDFW's web site</a>, and must be kept until all the meat is eaten or disposed of.
+
+        <div class="key">
+          <div class="item">
+            <i class="deer dot"></i> Deer
+          </div>
+          <div class="item">
+            <i class="elk dot"></i> Elk
+          </div>
+        </div>
+
+        <div class="map-container">
+          <leaflet-map>
+            <tile-layer layer="esriTopographic"></tile-layer>
+            <map-options>{ "scrollWheelZoom": false }</map-options>
+          </leaflet-map>
+        </div>
+        <div class="source">
+          Source: Washington Department of Fish and Wildlife
+        </div>
+        <div class="credit">
+          Thomas Wilburn / The Seattle Times
+        </div>
+      </main>
+    </responsive-child>
+
+    <script>
+window.roadkillData = <%= JSON.stringify(csv.permits) %>;
+    </script>
+
+    <script src="app.js" async></script>
+    <% if (json.project.production) { %>
+    <%= !json.project.embedded ? t.include("partials/_analytics.html") : "" %>
+    <%= t.include("partials/_workHere.html") %>
+    <% } %>
+  </body>
+</html>
